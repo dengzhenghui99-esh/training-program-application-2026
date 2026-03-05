@@ -61,7 +61,8 @@ data_expression_long<-data_expression%>%
     names_to = "subject_id", 
     values_to = "expression level") 
 
-### Here I need to reshape the expression level tibble so that subject IDs will become a column rather than individual column headings, so I can then use then use this subject_id column to leftjoin with the sample metadata 
+### Here I need to reshape the expression level tibble so that subject IDs will become a column rather than individual column headings, 
+### so I can then use then use this subject_id column to leftjoin with the sample metadata 
 
 data_combine<-left_join(x=data_meta,
                         y=data_expression_long,
@@ -73,7 +74,12 @@ data_combine<-left_join(x=data_meta,
 ## Plot the expression by cell type
 ## Can use boxplot() or geom_boxplot() in ggplot2
 
-### There are over 20000 gene in the expression level data, it would be impossible and not very useful to compare their overall expression between the two cell population. While this can be achieved simply by group_by(immunophenotype), and summarise (expression level), to find the overall mean expression level and sderr. I decided it would be much more useful to compare individual (or multiple) gene type at once. Below I constructed a boxplot to illustrate the difference of Abhd2 gene expression level (randomly selected) between the two cell population. 
+### There are over 20000 gene in the expression level data, 
+### it would be impossible and not very useful to compare their overall expression between the two cell population. 
+### While this can be achieved simply by group_by(immunophenotype), and summarise (expression level), 
+### to find the overall mean expression level and sderr. 
+### I decided it would be much more useful to compare individual (or multiple) gene type at once. 
+### Below I constructed a boxplot to illustrate the difference of Abhd2 gene expression level (randomly selected) between the two cell population. 
 
 Abhd2_plot<-data_combine%>%
   filter(gene_symbol=="Abhd2")%>%   ### this step select the gene(s) of interest
@@ -96,7 +102,8 @@ Abhd2_plot<-data_combine%>%
   labs(x = element_blank(),
        y = "Expression Level (unit)")     ### finally change the y-axis label 
 
-### If want to represent multiple gene expression level comparsion plot at once, facet_wrap (~immunopheotype) can be used
+### If want to represent multiple gene expression level comparsion plot at once, 
+### facet_wrap (~immunopheotype) can be used
 
 ## Save the plot
 ### Show code for saving the plot with ggsave() or a similar function
